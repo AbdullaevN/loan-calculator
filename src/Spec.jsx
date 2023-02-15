@@ -14,7 +14,7 @@ const purposeOfFunding = [
 ];
 
 const yearOptions = [1, 2, 3, 4, 5, 6, 7];
-const currencySelect = ["сом", "сум", "рубль", "usd"];
+const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
 
 export const Spec = () => {
   const [count, setCount] = useState(0);
@@ -97,7 +97,7 @@ export const Spec = () => {
     setSrok(srokOptions[val] || "");
   };
 
-  console.log(selectedPurposeOfFunding[2], "sdvd");
+  // console.log(selectedPurposeOfFunding[2], "sdvd");
 
   return (
     <>
@@ -281,6 +281,14 @@ export const Spec = () => {
                 ""
               )}
             </div>
+            {total < 100 && (
+              <>
+                <div class="error">
+                  {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
+                  {/* ${currency.title} */}
+                </div>
+              </>
+            )}
 
             {/* <div>{purposeOfFundin[2] ? "rt" : "trhet"}</div> */}
             {/* <div>{purposeOfFunding[2] ? "rtbr" : ""}</div> */}

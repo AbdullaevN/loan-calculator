@@ -8,7 +8,7 @@ const firstContributionOptions = [10, 15, 20, 25, 30, 35, 40, 45, 50];
 const purposeOfFunding = ["Покупка квартиры", "Аренда офиса", "Один", "Два"];
 
 const yearOptions = [1, 2, 3, 4, 5];
-const currencySelect = ["сом", "сум", "рубль", "usd"];
+const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
 
 export const Avto = () => {
   const [count, setCount] = useState(0);
@@ -255,6 +255,14 @@ export const Avto = () => {
                 </tr> */}
               </tbody>
             </Table>
+            {total < 100 && (
+              <>
+                <div class="error">
+                  {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
+                  {/* ${currency.title} */}
+                </div>
+              </>
+            )}
 
             <div>
               <ul>

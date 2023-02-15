@@ -5,8 +5,8 @@ import { Button, InputGroup } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 
 import Form from "react-bootstrap/Form";
-// import { ComponentToPrint } from "./ComponentToPrint";
-// import ReactToPrint from "react-to-print";
+import { convert } from "exchange-rates-api";
+
 const firstContributionOptions = [10, 15, 20, 25, 30, 35, 40, 45, 50];
 const purposeOfFunding = [
   "Покупка квартиры",
@@ -20,9 +20,25 @@ const yearOptions = [
   1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
   23, 24, 25,
 ];
-const currencySelect = ["сом", "сум", "рубль", "usd"];
+// const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
+const currencySelect = [
+  {
+    title: "сом",
+    currency: "KGZ",
+  },
+  {
+    title: "usd",
+    currency: "USD",
+  },
+];
 
 export const Ned = () => {
+  // const { convert } = require("exchange-rates-api")
+  async () => {
+    const minAmount = await convert(10000, "USD", currency, "2018-01-01");
+    console.log(minAmount);
+  };
+
   function printEl() {
     var body = document.body.html(),
       el = document.querySelector(".print");
@@ -30,8 +46,6 @@ export const Ned = () => {
     window.print();
     document.body.html(body);
   }
-
-  let componentRef = useRef();
 
   const [totalError, setTotalError] = useState("er");
 
@@ -75,6 +89,15 @@ export const Ned = () => {
 
   //
 
+  const som = 10000;
+
+  const dollar = 10000;
+  const minRange = 10000;
+  const maxRange = 150000;
+
+  if (currencySelect === "сом") {
+  }
+
   const firstContribution =
     (Number(price) * selectedFirstContributionOption) / 100;
 
@@ -94,7 +117,7 @@ export const Ned = () => {
       return "egr";
       totalError;
     } else {
-      console.log("e");
+      // console.log("e");
     }
   };
   getErrorTotal();
@@ -128,6 +151,8 @@ export const Ned = () => {
   const getSrok = (val) => {
     setSrok(srokOptions[val] || "");
   };
+
+  // console.log(price * 86, "max");
   return (
     <>
       <div className="home">
@@ -167,8 +192,11 @@ export const Ned = () => {
                   className="select"
                   onChange={(event) => setCurrency(event.target.value)}
                 >
-                  {currencySelect.map((currency) => (
+                  {/* {currencySelect.map((currency) => (
                     <option key={currency}>{currency}</option>
+                  ))} */}
+                  {currencySelect.map((currency) => (
+                    <option key={currency.title}>{currency.title}</option>
                   ))}
                 </Form.Select>
               </div>
@@ -184,6 +212,19 @@ export const Ned = () => {
                 onChange={(event) => setPrice(event.target.value)}
               />
               {/* <p>Value: {price}</p> */}
+            </div>
+
+            <div>
+              <input
+                type="range"
+                className="range"
+                min={10000}
+                max={150000}
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+              />
+              {/* <p>Value: {price}</p> */}
+              <div>{price * 86}</div>
             </div>
             {/*  */}
 
@@ -252,39 +293,39 @@ export const Ned = () => {
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{price} </td>
-                  <td>{currency} </td>
+                  <td>{currency.title} </td>
                 </tr>
                 <tr>
                   <td className="td">Первоначальный взнос:</td>
                   <td>{firstContribution}</td>
-                  <td>{currency} </td>
+                  <td>{currency.title} </td>
                 </tr>
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
                   {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
                   <td>{newResulEdinPercent}</td>
-                  <td>{currency} </td>
+                  <td>{currency.title} </td>
                 </tr>
                 <tr>
                   <td className="td">Сумма ПВ и ЕВ:</td>
                   <td>{summaPvEv}</td>
-                  <td>{currency} </td>
+                  <td>{currency.currency} </td>
                 </tr>
 
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{leftover}</td>
-                  <td>{currency} </td>
+                  <td>{currency.title} </td>
                 </tr>
                 <tr>
                   <td className="td">Ежемесячный платеж:</td>
                   <td>{total}</td>
-                  <td>{currency} </td>
+                  <td>{currency.title} </td>
                 </tr>
                 <tr>
                   <td className="td">Срок ожидания:</td>
                   <td>{srok}</td>
-                  <td>{currency} </td>
+                  <td>{currency.title} </td>
                 </tr>
               </tbody>
             </Table>
@@ -292,7 +333,8 @@ export const Ned = () => {
             {total < 100 && (
               <>
                 <div class="error">
-                  {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  ${currency}`}
+                  {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
+                  {/* ${currency.title} */}
                 </div>
               </>
             )}

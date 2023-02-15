@@ -8,7 +8,7 @@ import Table from "react-bootstrap/Table";
 
 const savingPercentage = [10, 15, 20, 25, 30, 35, 40, 45, 50];
 const monthOptions = [3, 6, 9, 12, 24];
-const currencySelect = ["сом", "сум", "рубль", "usd"];
+const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
 
 export const Nako = () => {
   const [price, setPrice] = useState("3000000");
@@ -29,7 +29,7 @@ export const Nako = () => {
   const firstContribution =
     (Number(price) * selectedFirstContributionOption) / 100;
 
-  console.log(firstContribution);
+  // console.log(firstContribution);
   const leftover = Number(price) - firstContribution;
 
   const resultEdinPercent = (price / 100) * edinPercent;
