@@ -261,3 +261,15 @@ input[type="range"]::-ms-fill-upper {
   font-weight: 800;
   /* background-image: url("https://i.imgur.com/GnyDvKN.png"); */
 }
+
+.content-price {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+}
+.content-price-block {
+  display: flex;
+  border: 1px solid gray;
+  border-radius: 20px;
+  padding: 10px;
+}

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@mui/icons-material": "^5.11.0",
+    "axios": "^1.3.3",
     "bootstrap": "^5.2.3",
     "exchange-rates-api": "^1.1.0",
     "react": "^18.2.0",

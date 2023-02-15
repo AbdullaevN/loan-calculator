@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./design.css";
 import "./print.css";
 import { Button, InputGroup } from "react-bootstrap";
@@ -6,6 +6,7 @@ import Table from "react-bootstrap/Table";
 
 import Form from "react-bootstrap/Form";
 import { convert } from "exchange-rates-api";
+import axios from "axios";
 
 const firstContributionOptions = [10, 15, 20, 25, 30, 35, 40, 45, 50];
 const purposeOfFunding = [
@@ -32,6 +33,32 @@ const currencySelect = [
   },
 ];
 
+const CurrencyOptions = [
+  {
+    title: "доллар",
+    currency: "USD",
+  },
+  {
+    title: "сом",
+    currency: "KGS",
+  },
+  {
+    title: "евро",
+    currency: "EUR",
+  },
+  {
+    title: "рубль",
+    currency: "RUB",
+  },
+  {
+    title: "тенге",
+    currency: "KZT",
+  },
+];
+
+const minValueInDollars = 10000;
+const maxValueInDollars = 150000;
+
 export const Ned = () => {
   // const { convert } = require("exchange-rates-api")
   async () => {
@@ -50,7 +77,7 @@ export const Ned = () => {
   const [totalError, setTotalError] = useState("er");
 
   const [count, setCount] = useState(0);
-  const [price, setPrice] = useState("10000");
+  // const [price, setPrice] = useState("10000");
   const [srok, setSrok] = useState("6");
   // const edin = 5000;
   const edinPercent = 5;
@@ -73,6 +100,46 @@ export const Ned = () => {
     setValue(event.target.value);
   };
 
+  //
+
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    CurrencyOptions[0].title
+  );
+  const [price, setPrice] = useState(`${minValueInDollars}`);
+  const [conversionRates, setConversionRates] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const { data } = await axios(
+          // .get<{
+          //   conversion_rates: Record<string, number>;
+          // }>
+          "https://v6.exchangerate-api.com/v6/1e7cf64bfbea115cf5c534ee/latest/USD"
+        );
+
+        setConversionRates(data.conversion_rates);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    getData();
+  }, []);
+
+  const selectedCurrencyCode = CurrencyOptions.find(
+    ({ title }) => title === selectedCurrency
+  )?.currency;
+
+  const minValueInChosenCurrency = selectedCurrencyCode
+    ? conversionRates[selectedCurrencyCode] * minValueInDollars
+    : minValueInDollars;
+  const maxValueInChosenCurrency = selectedCurrencyCode
+    ? conversionRates[selectedCurrencyCode] * maxValueInDollars
+    : maxValueInDollars;
+
+  //
+
   //ежемесячный платеж
   const percent = 15;
   const month = selectedYearOption * 12;
@@ -83,9 +150,6 @@ export const Ned = () => {
   let res2 = Number(result * 100) / percent;
 
   const finish = price - res;
-
-  // const total = finish / month;
-  // const total = (finish / month).toFixed(3);
 
   //
 
@@ -176,7 +240,7 @@ export const Ned = () => {
             </Form.Select>
 
             <div style={{ display: "flex", padding: " 20px 0" }}>
-              <div style={{}}>
+              {/* <div style={{}}>
                 <div>Стоимость</div>
                 <Form.Control
                   value={price}
@@ -184,25 +248,23 @@ export const Ned = () => {
                   type="number"
                   onChange={(event) => setPrice(event.target.value)}
                 />
-              </div>
+              </div> */}
 
-              <div>
+              {/* <div>
                 <div>Валюта</div>
                 <Form.Select
                   className="select"
                   onChange={(event) => setCurrency(event.target.value)}
                 >
-                  {/* {currencySelect.map((currency) => (
-                    <option key={currency}>{currency}</option>
-                  ))} */}
+ 
                   {currencySelect.map((currency) => (
                     <option key={currency.title}>{currency.title}</option>
                   ))}
                 </Form.Select>
-              </div>
+              </div> */}
             </div>
 
-            <div>
+            {/* <div>
               <input
                 type="range"
                 className="range"
@@ -211,10 +273,9 @@ export const Ned = () => {
                 value={price}
                 onChange={(event) => setPrice(event.target.value)}
               />
-              {/* <p>Value: {price}</p> */}
-            </div>
+             </div> */}
 
-            <div>
+            {/* <div>
               <input
                 type="range"
                 className="range"
@@ -223,10 +284,43 @@ export const Ned = () => {
                 value={price}
                 onChange={(event) => setPrice(event.target.value)}
               />
-              {/* <p>Value: {price}</p> */}
               <div>{price * 86}</div>
-            </div>
+            </div> */}
             {/*  */}
+            <div>
+              <div className="content-price">
+                <div className="content-price-block">{selectedCurrency}</div>
+                <div className="content-price-block">{price}</div>
+              </div>
+
+              {/* <Form.Control
+                value={price}
+                type="number"
+                onChange={(event) => {
+                  setPrice(event.target.value);
+                }}
+              /> */}
+              <Form.Select
+                onChange={(event) => {
+                  console.log("som", event.target.value);
+
+                  setSelectedCurrency(event.target.value);
+                }}
+              >
+                {CurrencyOptions.map(({ title }) => (
+                  <option key={title}>{title}</option>
+                ))}
+              </Form.Select>
+
+              <input
+                type="range"
+                className="range"
+                min={`${minValueInChosenCurrency}`}
+                max={`${maxValueInChosenCurrency}`}
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+              />
+            </div>
 
             <div
               style={{
@@ -293,39 +387,39 @@ export const Ned = () => {
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{price} </td>
-                  <td>{currency.title} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Первоначальный взнос:</td>
                   <td>{firstContribution}</td>
-                  <td>{currency.title} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
                   {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
                   <td>{newResulEdinPercent}</td>
-                  <td>{currency.title} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Сумма ПВ и ЕВ:</td>
                   <td>{summaPvEv}</td>
-                  <td>{currency.currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
 
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{leftover}</td>
-                  <td>{currency.title} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Ежемесячный платеж:</td>
                   <td>{total}</td>
-                  <td>{currency.title} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Срок ожидания:</td>
                   <td>{srok}</td>
-                  <td>{currency.title} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
               </tbody>
             </Table>
@@ -376,7 +470,16 @@ export const Ned = () => {
               Распечатать
             </a> */}
 
-            <div></div>
+            <div>
+              * Недвижимость должна быть сдана в эксплуатацию и иметь
+              технический паспорт <br />
+              * В случае желания приобрести на одну семью несколько
+              недвижимостей - предоставить справку о составе семьи <br />
+              * Год постройки не должен превышать 1965 г <br />
+              * Имущество не должно находиться в залоге или аресте <br />
+              * Имущество не должно находиться в аварийном состоянии <br />*
+              Строительство и ремонт финансируется поэтапно (по графику)
+            </div>
           </div>
         </div>
       </div>
