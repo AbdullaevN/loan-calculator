@@ -60,7 +60,6 @@ const minValueInDollars = 10000;
 const maxValueInDollars = 150000;
 
 export const Ned = () => {
-  // const { convert } = require("exchange-rates-api")
   async () => {
     const minAmount = await convert(10000, "USD", currency, "2018-01-01");
     console.log(minAmount);
@@ -158,9 +157,6 @@ export const Ned = () => {
   const dollar = 10000;
   const minRange = 10000;
   const maxRange = 150000;
-
-  if (currencySelect === "сом") {
-  }
 
   const firstContribution =
     (Number(price) * selectedFirstContributionOption) / 100;

@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./design.css";
 import { InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Table from "react-bootstrap/Table";
+import { convert } from "exchange-rates-api";
+import axios from "axios";
 
 const firstContributionOptions = [10, 15, 20, 25, 30, 35, 40, 45, 50];
 const purposeOfFunding = [
@@ -14,11 +16,47 @@ const purposeOfFunding = [
 ];
 
 const yearOptions = [1, 2, 3, 4, 5, 6, 7];
-const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
+// const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
+const currencySelect = [
+  {
+    title: "сом",
+    currency: "KGZ",
+  },
+  {
+    title: "usd",
+    currency: "USD",
+  },
+];
+
+const CurrencyOptions = [
+  {
+    title: "доллар",
+    currency: "USD",
+  },
+  {
+    title: "сом",
+    currency: "KGS",
+  },
+  {
+    title: "евро",
+    currency: "EUR",
+  },
+  {
+    title: "рубль",
+    currency: "RUB",
+  },
+  {
+    title: "тенге",
+    currency: "KZT",
+  },
+];
+
+const minValueInDollars = 4000;
+const maxValueInDollars = 150000;
 
 export const Spec = () => {
   const [count, setCount] = useState(0);
-  const [price, setPrice] = useState("5000");
+  // const [price, setPrice] = useState("5000");
   const [srok, setSrok] = useState("6");
   const edin = 5000;
   const edinPercent = 5;
@@ -37,6 +75,46 @@ export const Spec = () => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
+
+  //
+
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    CurrencyOptions[0].title
+  );
+  const [price, setPrice] = useState(`${minValueInDollars}`);
+  const [conversionRates, setConversionRates] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const { data } = await axios(
+          // .get<{
+          //   conversion_rates: Record<string, number>;
+          // }>
+          "https://v6.exchangerate-api.com/v6/1e7cf64bfbea115cf5c534ee/latest/USD"
+        );
+
+        setConversionRates(data.conversion_rates);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    getData();
+  }, []);
+
+  const selectedCurrencyCode = CurrencyOptions.find(
+    ({ title }) => title === selectedCurrency
+  )?.currency;
+
+  const minValueInChosenCurrency = selectedCurrencyCode
+    ? conversionRates[selectedCurrencyCode] * minValueInDollars
+    : minValueInDollars;
+  const maxValueInChosenCurrency = selectedCurrencyCode
+    ? conversionRates[selectedCurrencyCode] * maxValueInDollars
+    : maxValueInDollars;
+
+  //
 
   //ежемесячный платеж
   const percent = 15;
@@ -121,7 +199,7 @@ export const Spec = () => {
               ))}
             </Form.Select>
 
-            <div style={{ display: "flex", padding: " 20px 0" }}>
+            {/* <div style={{ display: "flex", padding: " 20px 0" }}>
               <div style={{}}>
                 <div>Стоимость</div>
                 <Form.Control
@@ -154,7 +232,40 @@ export const Spec = () => {
                 value={price}
                 onChange={(event) => setPrice(event.target.value)}
               />
-              {/* <p>Value: {price}</p> */}
+            </div> */}
+            <div>
+              <div className="content-price">
+                <div className="content-price-block">{selectedCurrency}</div>
+                <div className="content-price-block">{price}</div>
+              </div>
+
+              {/* <Form.Control
+                value={price}
+                type="number"
+                onChange={(event) => {
+                  setPrice(event.target.value);
+                }}
+              /> */}
+              <Form.Select
+                onChange={(event) => {
+                  console.log("som", event.target.value);
+
+                  setSelectedCurrency(event.target.value);
+                }}
+              >
+                {CurrencyOptions.map(({ title }) => (
+                  <option key={title}>{title}</option>
+                ))}
+              </Form.Select>
+
+              <input
+                type="range"
+                className="range"
+                min={`${minValueInChosenCurrency}`}
+                max={`${maxValueInChosenCurrency}`}
+                value={price}
+                onChange={(event) => setPrice(event.target.value)}
+              />
             </div>
             {/*  */}
 
@@ -218,49 +329,49 @@ export const Spec = () => {
                 <tr>
                   <td>3</td>
                   <td>{selectedYearOption}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{price} </td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Первоначальный взнос:</td>
                   <td>{firstContribution}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
                   {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
                   <td>{newResulEdinPercent}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Сумма ПВ и ЕВ:</td>
                   <td>{summaPvEv}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
 
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{leftover}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Ежемесячный платеж:</td>
                   <td>{total}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
                   <td className="td">Срок ожидания:</td>
                   <td>{srok}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr>
                 {/* <tr>
                   <td className="td">Срок накопления:</td>
                   <td>{selectedYearOption}</td>
-                  <td>{currency} </td>
+                  <td>{selectedCurrency} </td>
                 </tr> */}
               </tbody>
             </Table>

@@ -1,14 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./design.css";
 import { InputGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import Table from "react-bootstrap/Table";
+import { convert } from "exchange-rates-api";
+import axios from "axios";
 
 const savingPercentage = [10, 15, 20, 25, 30, 35, 40, 45, 50];
 const monthOptions = [3, 6, 9, 12, 24];
-const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
+// const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
+const currencySelect = [
+  {
+    title: "сом",
+    currency: "KGZ",
+  },
+  {
+    title: "usd",
+    currency: "USD",
+  },
+];
+
+const CurrencyOptions = [
+  {
+    title: "доллар",
+    currency: "USD",
+  },
+  {
+    title: "сом",
+    currency: "KGS",
+  },
+  {
+    title: "евро",
+    currency: "EUR",
+  },
+  {
+    title: "рубль",
+    currency: "RUB",
+  },
+  {
+    title: "тенге",
+    currency: "KZT",
+  },
+];
+
+const minValueInDollars = 4000;
+const maxValueInDollars = 150000;
 
 export const Nako = () => {
   const [price, setPrice] = useState("3000000");
@@ -34,6 +72,46 @@ export const Nako = () => {
 
   const resultEdinPercent = (price / 100) * edinPercent;
   const summaPvEv = firstContribution + resultEdinPercent;
+
+  //
+
+  const [selectedCurrency, setSelectedCurrency] = useState(
+    CurrencyOptions[0].title
+  );
+  // const [price, setPrice] = useState(`${minValueInDollars}`);
+  const [conversionRates, setConversionRates] = useState({});
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        const { data } = await axios(
+          // .get<{
+          //   conversion_rates: Record<string, number>;
+          // }>
+          "https://v6.exchangerate-api.com/v6/1e7cf64bfbea115cf5c534ee/latest/USD"
+        );
+
+        setConversionRates(data.conversion_rates);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+
+    getData();
+  }, []);
+
+  const selectedCurrencyCode = CurrencyOptions.find(
+    ({ title }) => title === selectedCurrency
+  )?.currency;
+
+  const minValueInChosenCurrency = selectedCurrencyCode
+    ? conversionRates[selectedCurrencyCode] * minValueInDollars
+    : minValueInDollars;
+  const maxValueInChosenCurrency = selectedCurrencyCode
+    ? conversionRates[selectedCurrencyCode] * maxValueInDollars
+    : maxValueInDollars;
+
+  //
 
   //ежемесячный платеж
   const percent = 15;
@@ -86,7 +164,7 @@ export const Nako = () => {
               <div className="left">
                 <h1>Накопительная</h1>
                 <div></div>
-                <div style={{ display: "flex", padding: " 20px 0" }}>
+                {/* <div style={{ display: "flex", padding: " 20px 0" }}>
                   <div style={{}}>
                     <div>Сумма</div>
                     <Form.Control
@@ -118,7 +196,42 @@ export const Nako = () => {
                     value={price}
                     onChange={(event) => setPrice(event.target.value)}
                   />
-                  {/* <p>Value: {price}</p> */}
+                 </div> */}
+                <div>
+                  <div className="content-price">
+                    <div className="content-price-block">
+                      {selectedCurrency}
+                    </div>
+                    <div className="content-price-block">{price}</div>
+                  </div>
+
+                  {/* <Form.Control
+                value={price}
+                type="number"
+                onChange={(event) => {
+                  setPrice(event.target.value);
+                }}
+              /> */}
+                  <Form.Select
+                    onChange={(event) => {
+                      console.log("som", event.target.value);
+
+                      setSelectedCurrency(event.target.value);
+                    }}
+                  >
+                    {CurrencyOptions.map(({ title }) => (
+                      <option key={title}>{title}</option>
+                    ))}
+                  </Form.Select>
+
+                  <input
+                    type="range"
+                    className="range"
+                    min={`${minValueInChosenCurrency}`}
+                    max={`${maxValueInChosenCurrency}`}
+                    value={price}
+                    onChange={(event) => setPrice(event.target.value)}
+                  />
                 </div>
 
                 {/* */}
@@ -170,38 +283,38 @@ export const Nako = () => {
                     <tr>
                       <td className="td">Сумма финансирования:</td>
                       <td>{price} </td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
                     <tr>
                       <td className="td">Первоначальный взнос:</td>
                       <td>{firstContribution}</td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
 
                     <tr>
                       <td className="td">Ежемесячный платеж:</td>
                       <td>{total}</td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
                     <tr>
                       <td className="td">Сумма ПВ и ЕВ:</td>
                       <td>{summaPvEv}</td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
                     <tr>
                       <td className="td">Срок ожидания:</td>
                       <td>{srok}</td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
                     <tr>
                       <td className="td">Сумма финансирования:</td>
                       <td>{leftover}</td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
                     <tr>
                       <td className="td">Срок накопления:</td>
                       <td>{selectedYearOption}</td>
-                      <td>{currency} </td>
+                      <td>{selectedCurrency} </td>
                     </tr>
                   </tbody>
                 </Table>
