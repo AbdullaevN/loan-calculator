@@ -273,3 +273,13 @@ input[type="range"]::-ms-fill-upper {
   border-radius: 20px;
   padding: 10px;
 }
+
+/*  */
+.text-infoo {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  color: black !important;
+  width: 100%;
+}

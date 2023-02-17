@@ -54,6 +54,10 @@ const CurrencyOptions = [
     title: "тенге",
     currency: "KZT",
   },
+  {
+    title: "сум",
+    currency: "UZS",
+  },
 ];
 
 const minValueInDollars = 10000;
@@ -171,6 +175,18 @@ export const Ned = () => {
 
   // ежемесячный платеж
   const total = (leftover / month).toFixed(3);
+
+  //
+
+  if (selectedCurrency === "сом") {
+    if (total < 8000) {
+      console.log("8000");
+    } else {
+      console.log("no");
+    }
+  }
+
+  //
 
   const getErrorTotal = () => {
     if (total <= "100") {
@@ -415,19 +431,54 @@ export const Ned = () => {
                 <tr>
                   <td className="td">Срок ожидания:</td>
                   <td>{srok}</td>
-                  <td>{selectedCurrency} </td>
+                  <td></td>
                 </tr>
               </tbody>
             </Table>
 
-            {total < 100 && (
-              <>
-                <div class="error">
-                  {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
-                  {/* ${currency.title} */}
-                </div>
-              </>
-            )}
+            {/* проверки на мин ежемесячный платеж
+             */}
+            <div>
+              {total < 100 && (
+                <>
+                  <div class="error">
+                    {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
+                    {/* ${currency.title} */}
+                  </div>
+                </>
+              )}
+
+              <div className="error">
+                {selectedCurrency === "сом"
+                  ? total < 8600 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 8800 сом`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "евро"
+                  ? total < 95 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 94 евро`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "тенге"
+                  ? total < 45000 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 44500 тенге`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "сум"
+                  ? total < 1142000 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 114100 сум`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "рубль"
+                  ? total < 7500 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 7500 рубль`
+                  : ""}
+              </div>
+            </div>
 
             <div>
               {selectedPurposeOfFunding === "Строительство" ? (
@@ -466,7 +517,7 @@ export const Ned = () => {
               Распечатать
             </a> */}
 
-            <div>
+            <div className="text-infoo">
               * Недвижимость должна быть сдана в эксплуатацию и иметь
               технический паспорт <br />
               * В случае желания приобрести на одну семью несколько

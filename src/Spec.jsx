@@ -392,14 +392,47 @@ export const Spec = () => {
                 ""
               )}
             </div>
-            {total < 100 && (
-              <>
-                <div class="error">
-                  {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
-                  {/* ${currency.title} */}
-                </div>
-              </>
-            )}
+            <div>
+              {total < 100 && (
+                <>
+                  <div class="error">
+                    {`ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 100  usd `}
+                    {/* ${currency.title} */}
+                  </div>
+                </>
+              )}
+
+              <div className="error">
+                {selectedCurrency === "сом"
+                  ? total < 8600 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 8800 сом`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "евро"
+                  ? total < 95 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 94 евро`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "тенге"
+                  ? total < 45000 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 44500 тенге`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "сум"
+                  ? total < 1142000 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 114100 сум`
+                  : ""}
+              </div>
+              <div className="error">
+                {selectedCurrency === "рубль"
+                  ? total < 7500 &&
+                    `ЕЖЕМЕСЯЧНЫЙ ПЛАЖЕТ ДОЛЖЕН СОДЕРЖАТЬ НЕ МЕНЕЕ 7500 рубль`
+                  : ""}
+              </div>
+            </div>
 
             {/* <div>{purposeOfFundin[2] ? "rt" : "trhet"}</div> */}
             {/* <div>{purposeOfFunding[2] ? "rtbr" : ""}</div> */}
