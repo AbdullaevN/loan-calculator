@@ -37,10 +37,10 @@ const CurrencyOptions = [
     title: "сом",
     currency: "KGS",
   },
-  {
-    title: "евро",
-    currency: "EUR",
-  },
+  // {
+  //   title: "евро",
+  //   currency: "EUR",
+  // },
   {
     title: "рубль",
     currency: "RUB",

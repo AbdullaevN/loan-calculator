@@ -42,10 +42,10 @@ const CurrencyOptions = [
     title: "сом",
     currency: "KGS",
   },
-  {
-    title: "евро",
-    currency: "EUR",
-  },
+  // {
+  //   title: "евро",
+  //   currency: "EUR",
+  // },
   {
     title: "рубль",
     currency: "RUB",
@@ -54,10 +54,10 @@ const CurrencyOptions = [
     title: "тенге",
     currency: "KZT",
   },
-  {
-    title: "сум",
-    currency: "UZS",
-  },
+  // {
+  //   title: "сум",
+  //   currency: "UZS",
+  // },
 ];
 
 const minValueInDollars = 10000;
