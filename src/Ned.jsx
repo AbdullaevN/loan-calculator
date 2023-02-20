@@ -172,11 +172,11 @@ export const Ned = () => {
   // const resultEdinPercent = ((price / 100) * edinPercent).toFixed(3);
   const resultEdinPercent = (price / 100) * edinPercent;
 
-  const newResulEdinPercent = resultEdinPercent.toFixed(3);
-  const summaPvEv = firstContribution + resultEdinPercent;
+  const newResulEdinPercent = resultEdinPercent.toFixed(0);
+  const summaPvEv = (firstContribution + resultEdinPercent).toFixed(0);
 
   // ежемесячный платеж
-  const total = (leftover / month).toFixed(3);
+  const total = (leftover / month).toFixed(0);
 
   //
 
@@ -253,67 +253,14 @@ export const Ned = () => {
               ))}
             </Form.Select>
 
-            <div style={{ display: "flex", padding: " 20px 0" }}>
-              {/* <div style={{}}>
-                <div>Стоимость</div>
-                <Form.Control
-                  value={price}
-                  className="summa-select"
-                  type="number"
-                  onChange={(event) => setPrice(event.target.value)}
-                />
-              </div> */}
+            <div style={{ display: "flex", padding: " 20px 0" }}></div>
 
-              {/* <div>
-                <div>Валюта</div>
-                <Form.Select
-                  className="select"
-                  onChange={(event) => setCurrency(event.target.value)}
-                >
- 
-                  {currencySelect.map((currency) => (
-                    <option key={currency.title}>{currency.title}</option>
-                  ))}
-                </Form.Select>
-              </div> */}
-            </div>
-
-            {/* <div>
-              <input
-                type="range"
-                className="range"
-                min={10000}
-                max={150000}
-                value={price}
-                onChange={(event) => setPrice(event.target.value)}
-              />
-             </div> */}
-
-            {/* <div>
-              <input
-                type="range"
-                className="range"
-                min={10000}
-                max={150000}
-                value={price}
-                onChange={(event) => setPrice(event.target.value)}
-              />
-              <div>{price * 86}</div>
-            </div> */}
-            {/*  */}
             <div>
               <div className="content-price">
                 <div className="content-price-block">{selectedCurrency}</div>
                 <div className="content-price-block">{price}</div>
               </div>
 
-              {/* <Form.Control
-                value={price}
-                type="number"
-                onChange={(event) => {
-                  setPrice(event.target.value);
-                }}
-              /> */}
               <Form.Select
                 onChange={(event) => {
                   console.log("som", event.target.value);
@@ -393,11 +340,6 @@ export const Ned = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* <tr>
-                  <td>3</td>
-                  <td>{selectedYearOption}</td>
-                  <td>{currency} </td>
-                </tr> */}
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{price} </td>
@@ -438,8 +380,6 @@ export const Ned = () => {
               </tbody>
             </Table>
 
-            {/* проверки на мин ежемесячный платеж
-             */}
             <div>
               {total < 100 && (
                 <>
@@ -491,7 +431,7 @@ export const Ned = () => {
                     fontWeight: "800",
                   }}
                 >
-                  Строительство облагается залоговым имуществом
+                  Строительство обеспечивается залоговым имуществом
                 </div>
               ) : (
                 // selectedPurposeOfFunding
@@ -507,17 +447,13 @@ export const Ned = () => {
                     fontWeight: "800",
                   }}
                 >
-                  Ремонт облагается залоговым имуществом
+                  Ремонт обеспечивается залоговым имуществом
                 </div>
               ) : (
                 // selectedPurposeOfFunding
                 ""
               )}
             </div>
-            {/* <a className="print-doc" href="javascript:(print());">
-              {" "}
-              Распечатать
-            </a> */}
 
             <div className="text-infoo">
               * Недвижимость должна быть сдана в эксплуатацию и иметь

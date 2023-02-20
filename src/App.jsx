@@ -14,7 +14,6 @@ function App() {
           <Route path="/" element={<TheCalculator />} />
 
           <Route path="/ned" element={<Ned />} />
-          <Route path="/exchange" element={<ExchangeRate />} />
         </Routes>
       </BrowserRouter>
     </>

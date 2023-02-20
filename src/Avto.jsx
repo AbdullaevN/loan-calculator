@@ -408,52 +408,11 @@ export const Avto = () => {
               </div>
             </div>
 
-            {/* <div>Результат</div>
-            <div>{`  : ${selectedYearOption}`}</div>
-
-            <div className="div">
-              {`Сумма финансирования: ${price} `}
-              <div>{currency}</div>
-            </div>
-            <div className="div">
-              {`Первоначальный взнос: ${firstContribution} `}
-              <div>{currency}</div>
-            </div>
-            <div className="div">
-              {`Единаразовый взнос: ${newResulEdinPercent} `}
-              <div>{currency}</div>
-            </div>
-            <div className="div">
-              {`Сумма ПВ и ЕВ: ${summaPvEv} `}
-              <div>{currency}</div>
-            </div>
-            <div>{`Срок ожидания: ${srok} `}</div>
-            <div className="div">
-              {`Сумма финансирования: ${leftover}  `}
-              <div>{currency}</div>
-            </div>
-            <div className="div">{`Ежемесячный платеж: ${total} `}</div> */}
-            <div>
-              {/* <div>{`Срок накопления:  ${selectedYearOption}`}</div>
-
-              <div>{result2}</div> */}
-              {/* <ol
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                }}
-              >
-                {[...Array(Number(selectedYearOption)).keys()].map((id) => (
-                  <li key={id}>{result2 / selectedYearOption}</li>
-                ))}
-              </ol> */}
-            </div>
-            {/* <div>{` Цель:  ${toPurposeOfFunding}`}</div> */}
+            <div></div>
           </div>
         </div>
         <div className="">
-          <ul className="">
+          <ul className="text-infoo">
             * Срок ожидания зависит от размера первоначального взноса <br />
             * Год выпуска автомашины не должен быть старше 2000 г <br />
             * Авто и спец технику могут получить только совершеннолетние <br />

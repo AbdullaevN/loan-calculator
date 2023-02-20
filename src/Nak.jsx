@@ -164,39 +164,7 @@ export const Nako = () => {
               <div className="left">
                 <h1>Накопительная</h1>
                 <div></div>
-                {/* <div style={{ display: "flex", padding: " 20px 0" }}>
-                  <div style={{}}>
-                    <div>Сумма</div>
-                    <Form.Control
-                      value={price}
-                      className="summa-select"
-                      type="number"
-                      onChange={(event) => setPrice(event.target.value)}
-                    />
-                  </div>
 
-                  <div>
-                    <div>Валюта</div>
-                    <Form.Select
-                      className="select"
-                      onChange={(event) => setCurrency(event.target.value)}
-                    >
-                      {currencySelect.map((currency) => (
-                        <option key={currency}>{currency}</option>
-                      ))}
-                    </Form.Select>
-                  </div>
-                </div>
-                <div>
-                  <input
-                    type="range"
-                    className="range"
-                    min={10000}
-                    max={150000}
-                    value={price}
-                    onChange={(event) => setPrice(event.target.value)}
-                  />
-                 </div> */}
                 <div>
                   <div className="content-price">
                     <div className="content-price-block">
@@ -205,13 +173,6 @@ export const Nako = () => {
                     <div className="content-price-block">{price}</div>
                   </div>
 
-                  {/* <Form.Control
-                value={price}
-                type="number"
-                onChange={(event) => {
-                  setPrice(event.target.value);
-                }}
-              /> */}
                   <Form.Select
                     onChange={(event) => {
                       console.log("som", event.target.value);
@@ -275,11 +236,6 @@ export const Nako = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {/* <tr>
-                      <td>3</td>
-                      <td>{selectedYearOption}</td>
-                      <td>{currency} </td>
-                    </tr> */}
                     <tr>
                       <td className="td">Сумма финансирования:</td>
                       <td>{price} </td>
@@ -322,7 +278,9 @@ export const Nako = () => {
                 <div>
                   <ol>
                     {[...Array(Number(selectedYearOption)).keys()].map((id) => (
-                      <li key={id}>{result / selectedYearOption}</li>
+                      <li key={id}>
+                        {(result / selectedYearOption).toFixed(2)}
+                      </li>
                     ))}
                   </ol>
                 </div>

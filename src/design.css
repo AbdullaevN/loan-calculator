@@ -277,8 +277,10 @@ input[type="range"]::-ms-fill-upper {
 /*  */
 .text-infoo {
   display: flex;
+  padding: 5px;
   justify-content: center;
   align-items: flex-start;
+  text-align: start;
   flex-direction: column;
   color: black !important;
   width: 100%;
