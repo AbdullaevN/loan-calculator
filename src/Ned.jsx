@@ -58,6 +58,8 @@ const CurrencyOptions = [
   //   title: "сум",
   //   currency: "UZS",
   // },
+
+  //
 ];
 
 const minValueInDollars = 10000;
