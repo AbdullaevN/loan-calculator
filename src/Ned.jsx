@@ -238,6 +238,69 @@ export const Ned = () => {
           <div className="left">
             <h1>Недвижимость</h1>
 
+            <div>Сумма</div>
+            <Form.Control
+              value={price}
+              className="summa-select"
+              min={`${minValueInChosenCurrency}`}
+              max={`${maxValueInChosenCurrency}`}
+              type="number"
+              onChange={(event) => setPrice(event.target.value)}
+
+              // onChange={(e) => console.log(e ===)}
+            />
+            {/* {CurrencyOptions === "сом"
+              ? price > 8000 && <div className="error">oshibka</div>
+              : ""} */}
+
+            <div className=" minmax">
+              {selectedCurrency === "сом"
+                ? price < 874100 &&
+                  `Минимальная сумма должна составлять от 874200.00 сом`
+                : ""
+                ? price > 13112000 &&
+                  "Максимальная сумма должна составлять до 13113000.00 сом"
+                : ""}
+            </div>
+
+            <div className=" minmax">
+              {selectedCurrency === "доллар"
+                ? price < 10000 &&
+                  `Минимальная сумма должна составлять от 10000 долларов`
+                : ""
+                ? price > 150000 &&
+                  "Максимальная сумма должна составлять до 150000 долларов"
+                : ""}
+            </div>
+
+            <div className=" minmax">
+              {selectedCurrency === "сумм"
+                ? price < 113306900 &&
+                  `Минимальная сумма должна составлять от 113306900.00 сум`
+                : ""
+                ? price > 1699603500 &&
+                  "Максимальная сумма должна составлять до 1699603500.00 сум"
+                : ""}
+            </div>
+            <div className=" minmax">
+              {selectedCurrency === "тенге"
+                ? price < 4474246 &&
+                  `Минимальная сумма должна составлять от 4474246 тенге`
+                : ""
+                ? price > 67113690 &&
+                  "Максимальная сумма должна составлять до 67113690 тенге"
+                : ""}
+            </div>
+            <div className=" minmax">
+              {selectedCurrency === "тенге"
+                ? price < 747650 &&
+                  `Минимальная сумма должна составлять от 747650 рубль`
+                : ""
+                ? price > 11214750 &&
+                  "Максимальная сумма должна составлять до 11214750  рубль"
+                : ""}
+            </div>
+
             {/* цель */}
             <div>Цель финансирования </div>
             <Form.Select
@@ -258,7 +321,12 @@ export const Ned = () => {
             <div>
               <div className="content-price">
                 <div className="content-price-block">{selectedCurrency}</div>
-                <div className="content-price-block">{price}</div>
+                <div
+                  className="content-price-block"
+                  // onChange={(event) => setPrice(event.target.value)}
+                >
+                  {price}
+                </div>
               </div>
 
               <Form.Select
