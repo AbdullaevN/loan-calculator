@@ -68,7 +68,7 @@ export const Nako = () => {
     (Number(price) * selectedFirstContributionOption) / 100;
 
   // console.log(firstContribution);
-  const leftover = Number(price) - firstContribution;
+  const leftover = (Number(price) - firstContribution).toFixed(1);
 
   const resultEdinPercent = (price / 100) * edinPercent;
   const summaPvEv = firstContribution + resultEdinPercent;
@@ -128,7 +128,7 @@ export const Nako = () => {
   // const resultEdinPercent = (price / 100) * edinPercent;
 
   // ежемесячный платеж
-  const total = (leftover / month).toFixed(3);
+  const total = (leftover / month).toFixed(1);
   //
 
   // срок ожидания
@@ -164,6 +164,17 @@ export const Nako = () => {
               <div className="left">
                 <h1>Накопительная</h1>
                 <div></div>
+                <div>Сумма</div>
+                <Form.Control
+                  value={price}
+                  className="summa-select"
+                  min={`${minValueInChosenCurrency}`}
+                  max={`${maxValueInChosenCurrency}`}
+                  type="number"
+                  onChange={(event) => setPrice(event.target.value)}
+
+                  // onChange={(e) => console.log(e ===)}
+                />
 
                 <div>
                   <div className="content-price">
@@ -185,14 +196,14 @@ export const Nako = () => {
                     ))}
                   </Form.Select>
 
-                  <input
+                  {/* <input
                     type="range"
                     className="range"
                     min={`${minValueInChosenCurrency}`}
                     max={`${maxValueInChosenCurrency}`}
                     value={price}
                     onChange={(event) => setPrice(event.target.value)}
-                  />
+                  /> */}
                 </div>
 
                 {/* */}

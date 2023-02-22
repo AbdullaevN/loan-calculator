@@ -5,6 +5,7 @@ import { TheCalculator } from "./TheCalculator";
 // import { Nakopitelniy } from "./Nakopitelniy";
 import { Ned } from "./Ned";
 import ExchangeRate from "./Exchange";
+import Converter from "./Test";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<TheCalculator />} />
 
           <Route path="/ned" element={<Ned />} />
+          <Route path="/converter" element={<Converter />} />
         </Routes>
       </BrowserRouter>
     </>

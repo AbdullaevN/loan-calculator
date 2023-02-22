@@ -134,11 +134,11 @@ export const Avto = () => {
   // const resultEdinPercent = ((price / 100) * edinPercent).toFixed(3);
   const resultEdinPercent = (price / 100) * edinPercent;
 
-  const newResulEdinPercent = resultEdinPercent.toFixed(3);
+  const newResulEdinPercent = resultEdinPercent.toFixed(1);
   const summaPvEv = firstContribution + resultEdinPercent;
 
   // ежемесячный платеж
-  const total = (leftover / month).toFixed(3);
+  const total = (leftover / month).toFixed(1);
 
   //valuta
 
@@ -174,6 +174,17 @@ export const Avto = () => {
         <div className="home-content">
           <div className="left">
             <h1>Авто</h1>
+            <div>Сумма</div>
+            <Form.Control
+              value={price}
+              className="summa-select"
+              min={`${minValueInChosenCurrency}`}
+              max={`${maxValueInChosenCurrency}`}
+              type="number"
+              onChange={(event) => setPrice(event.target.value)}
+
+              // onChange={(e) => console.log(e ===)}
+            />
 
             {/* цель */}
             {/* <div>Цель финансирования </div>
@@ -226,6 +237,60 @@ export const Avto = () => {
              </div> */}
             {/*  */}
             <div>
+              <div className=" minmax">
+                {selectedCurrency === "сом"
+                  ? price < 349672 &&
+                    `Минимальная сумма должна составлять от 349672 сом`
+                  : ""}
+                {selectedCurrency === "сом"
+                  ? price > 4370905 &&
+                    "Максимальная сумма должна составлять до 4370905 сом"
+                  : ""}
+              </div>
+
+              <div className=" minmax">
+                {selectedCurrency === "доллар"
+                  ? price < 4000 &&
+                    `Минимальная сумма должна составлять от 4000 долларов`
+                  : ""}
+                {selectedCurrency === "доллар"
+                  ? price > 50000 &&
+                    "Максимальная сумма должна составлять до 50000 долларов"
+                  : ""}
+              </div>
+
+              <div className=" minmax">
+                {selectedCurrency === "сум"
+                  ? price < 113306900 &&
+                    `Минимальная сумма должна составлять от 113306900.00 сум`
+                  : ""}
+                {selectedCurrency === "сум"
+                  ? price > 1699603500 &&
+                    "Максимальная сумма должна составлять до 1699603500.00 сум"
+                  : ""}
+              </div>
+              <div className=" minmax">
+                {selectedCurrency === "тенге"
+                  ? price < 1787744 &&
+                    `Минимальная сумма должна составлять от 1787744 тенге`
+                  : ""}
+                {selectedCurrency === "тенге"
+                  ? price > 22346805 &&
+                    "Максимальная сумма должна составлять до 22346805 тенге"
+                  : ""}
+              </div>
+              <div className=" minmax">
+                {selectedCurrency === "рубль"
+                  ? price < 299460 &&
+                    `Минимальная сумма должна составлять от 299460 рубль`
+                  : ""}
+                {selectedCurrency === "рубль"
+                  ? price > 3743250 &&
+                    "Максимальная сумма должна составлять до 3743250  рубль"
+                  : ""}
+              </div>
+            </div>
+            <div>
               <div className="content-price">
                 <div className="content-price-block">{selectedCurrency}</div>
                 <div className="content-price-block">{price}</div>
@@ -238,6 +303,7 @@ export const Avto = () => {
                   setPrice(event.target.value);
                 }}
               /> */}
+
               <Form.Select
                 onChange={(event) => {
                   console.log("som", event.target.value);
@@ -250,14 +316,14 @@ export const Avto = () => {
                 ))}
               </Form.Select>
 
-              <input
+              {/* <input
                 type="range"
                 className="range"
                 min={`${minValueInChosenCurrency}`}
                 max={`${maxValueInChosenCurrency}`}
                 value={price}
                 onChange={(event) => setPrice(event.target.value)}
-              />
+              /> */}
             </div>
 
             <div
@@ -357,7 +423,7 @@ export const Avto = () => {
                 <tr>
                   <td className="td">Срок ожидания:</td>
                   <td>{srok}</td>
-                  <td>{selectedCurrency} </td>
+                  <td> </td>
                 </tr>
                 {/* <tr>
                   <td className="td">Срок накопления:</td>

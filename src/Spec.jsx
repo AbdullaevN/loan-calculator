@@ -140,11 +140,11 @@ export const Spec = () => {
   // const resultEdinPercent = ((price / 100) * edinPercent).toFixed(3);
   const resultEdinPercent = (price / 100) * edinPercent;
 
-  const newResulEdinPercent = resultEdinPercent.toFixed(3);
+  const newResulEdinPercent = resultEdinPercent.toFixed(1);
   const summaPvEv = firstContribution + resultEdinPercent;
 
   // ежемесячный платеж
-  const total = (leftover / month).toFixed(3);
+  const total = (leftover / month).toFixed(1);
 
   //valuta
 
@@ -183,7 +183,72 @@ export const Spec = () => {
         <div className="home-content">
           <div className="left">
             <h1>Спец. техника</h1>
+            <div>Сумма</div>
+            <Form.Control
+              value={price}
+              className="summa-select"
+              min={`${minValueInChosenCurrency}`}
+              max={`${maxValueInChosenCurrency}`}
+              type="number"
+              onChange={(event) => setPrice(event.target.value)}
 
+              // onChange={(e) => console.log(e ===)}
+            />
+
+            <div>
+              <div className=" minmax">
+                {selectedCurrency === "сом"
+                  ? price < 437090 &&
+                    `Минимальная сумма должна составлять от 437090 сом`
+                  : ""}
+                {selectedCurrency === "сом"
+                  ? price > 13112000 &&
+                    "Максимальная сумма должна составлять до 13113000.00 сом"
+                  : ""}
+              </div>
+
+              <div className=" minmax">
+                {selectedCurrency === "доллар"
+                  ? price < 5000 &&
+                    `Минимальная сумма должна составлять от 5000 долларов`
+                  : ""}
+                {selectedCurrency === "доллар"
+                  ? price > 150000 &&
+                    "Максимальная сумма должна составлять до 150000 долларов"
+                  : ""}
+              </div>
+
+              <div className=" minmax">
+                {selectedCurrency === "сум"
+                  ? price < 113306900 &&
+                    `Минимальная сумма должна составлять от 113306900.00 сум`
+                  : ""}
+                {selectedCurrency === "сум"
+                  ? price > 1699603500 &&
+                    "Максимальная сумма должна составлять до 1699603500.00 сум"
+                  : ""}
+              </div>
+              <div className=" minmax">
+                {selectedCurrency === "тенге"
+                  ? price < 2234680 &&
+                    `Минимальная сумма должна составлять от 2234680 тенге`
+                  : ""}
+                {selectedCurrency === "тенге"
+                  ? price > 67113690 &&
+                    "Максимальная сумма должна составлять до 67113690 тенге"
+                  : ""}
+              </div>
+              <div className=" minmax">
+                {selectedCurrency === "рубль"
+                  ? price < 374325 &&
+                    `Минимальная сумма должна составлять от 374325 рубль`
+                  : ""}
+                {selectedCurrency === "рубль"
+                  ? price > 11214750 &&
+                    "Максимальная сумма должна составлять до 11214750  рубль"
+                  : ""}
+              </div>
+            </div>
             {/* цель */}
             <div>Цель финансирования </div>
             <Form.Select
@@ -258,14 +323,14 @@ export const Spec = () => {
                 ))}
               </Form.Select>
 
-              <input
+              {/* <input
                 type="range"
                 className="range"
                 min={`${minValueInChosenCurrency}`}
                 max={`${maxValueInChosenCurrency}`}
                 value={price}
                 onChange={(event) => setPrice(event.target.value)}
-              />
+              /> */}
             </div>
             {/*  */}
 
@@ -366,7 +431,7 @@ export const Spec = () => {
                 <tr>
                   <td className="td">Срок ожидания:</td>
                   <td>{srok}</td>
-                  <td>{selectedCurrency} </td>
+                  <td> </td>
                 </tr>
                 {/* <tr>
                   <td className="td">Срок накопления:</td>
@@ -441,7 +506,7 @@ export const Spec = () => {
           * Год выпуска спецтехники не должен быть старше 2000 г <br />
           * Имущество не должно находиться в залоге или аресте <br />
           * Имущество не должно находиться в аварийном состоянии <br />
-          <br />* На авто и спец технику могут получать только совершеннолетние
+          {/* * На авто и спец технику могут получать только совершеннолетние */}
         </div>
       </div>
     </>
