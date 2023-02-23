@@ -51,6 +51,12 @@ const maxValueInDollars = 150000;
 export const Nako = () => {
   const [price, setPrice] = useState("3000000");
   const [srok, setSrok] = useState("2");
+  const [selectedFirstContributionOption, setSelectedFirstContributionOption] =
+    useState(savingPercentage[0]);
+  const [firstContributionValue, setFirstContributionValue] = useState(
+    (+price * selectedFirstContributionOption) / 100
+  );
+
   const [currency, setCurrency] = useState(currencySelect[0]);
 
   const edinPercent = 5;
@@ -60,8 +66,6 @@ export const Nako = () => {
   var money = 3000000;
   var tallage = 14;
 
-  const [selectedFirstContributionOption, setSelectedFirstContributionOption] =
-    useState(savingPercentage[2]);
   const [selectedYearOption, setSelectedYearOption] = useState(monthOptions[0]);
 
   const firstContribution =
@@ -71,6 +75,9 @@ export const Nako = () => {
   const leftover = (Number(price) - firstContribution).toFixed(1);
 
   const resultEdinPercent = (price / 100) * edinPercent;
+
+  const newResulEdinPercent = resultEdinPercent.toFixed(1);
+
   const summaPvEv = firstContribution + resultEdinPercent;
 
   //
@@ -154,7 +161,7 @@ export const Nako = () => {
   const getSrok = (val) => {
     setSrok(srokOptions[val] || "");
   };
-
+  console.log(selectedFirstContributionOption);
   return (
     <>
       <>
@@ -258,6 +265,12 @@ export const Nako = () => {
                       <td>{selectedCurrency} </td>
                     </tr>
 
+                    <tr>
+                      <td className="td">Единаразовый взнос: </td>
+                      {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
+                      <td>{newResulEdinPercent}</td>
+                      <td>{selectedCurrency} </td>
+                    </tr>
                     <tr>
                       <td className="td">Ежемесячный платеж:</td>
                       <td>{total}</td>
