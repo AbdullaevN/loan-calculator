@@ -216,10 +216,10 @@ export const Nako = () => {
         time = 5;
         break;
       case 9:
-        (time = 4), 5;
+        time = 4.5;
         break;
       case 12:
-        (time = 4), 5;
+        time = 4.5;
         break;
       case 18:
         time = 4;
@@ -248,8 +248,6 @@ export const Nako = () => {
               max={`${maxValueInChosenCurrency}`}
               type="number"
               onChange={(event) => setPrice(event.target.value)}
-
-              // onChange={(e) => console.log(e ===)}
             />
 
             <div>
