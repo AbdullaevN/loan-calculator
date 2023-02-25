@@ -383,11 +383,11 @@ export const Avto = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                {/* <tr>
                   <td>3</td>
                   <td>{selectedYearOption}</td>
                   <td>{selectedCurrency} </td>
-                </tr>
+                </tr> */}
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{price} </td>

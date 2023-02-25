@@ -71,7 +71,26 @@ export const Nako = () => {
   const [currency, setCurrency] = useState(currencySelect[0]);
   const [firstF, setFirstF] = useState("kk");
 
-  const edinPercent = 5;
+  // const [perc, setPerc] = useState("5");
+  let edinPercent = 4;
+  // const percentFunc = (event) => {
+  //   setSelectedYearOption(event.target.value);
+  //   const value = parseInt(event.target.value);
+
+  //   let ed = 0;
+  //   switch (ed) {
+  //     case 3:
+  //       ed = 5;
+  //       break;
+  //     case 6:
+  //       ed = 4;
+  //       break;
+  //     default:
+  //       "log";
+  //   }
+
+  //   setPerc(ed);
+  // };
 
   const mal = 420;
 
@@ -88,7 +107,26 @@ export const Nako = () => {
   // console.log(firstContribution);
   const leftover = (Number(price) - firstContribution).toFixed(1);
 
+  // const [selectValue, setSelectValue] = useState("");
+  // let edinPercent = 0;
+  // switch (selectedYearOption) {
+  //   case 3:
+  //     edinPercent = 4;
+  //   case 9:
+  //     edinPercent = 5;
+  //   default:
+  //     "ff";
+  // }
+  // setSelectValue(edinPercent);
+  // sele = edinPercent;
+
+  // console.log(selectedYearOption, "first");
+  // if (selectedYearOption === 3) {
+  //   edinPercent = 5;
+  // }
+
   const resultEdinPercent = (price / 100) * edinPercent;
+  console.log(edinPercent, "edinP");
 
   const newResulEdinPercent = resultEdinPercent.toFixed(1);
 
@@ -178,28 +216,9 @@ export const Nako = () => {
 
   const options = [3, 6, 9, 18, 24];
   const [selectedOption, setSelectedOption] = useState("");
-  const [waitTime, setWaitTime] = useState("");
+  const [waitTime, setWaitTime] = useState("5");
 
-  const handleOptionChange = (event) => {
-    const value = parseInt(event.target.value);
-    let time = 0;
-
-    switch (value) {
-      case 3:
-        time = 4;
-        break;
-      case 9:
-        time = 3.5;
-        break;
-      case 24:
-        time = 3;
-        break;
-      default:
-        console.log("Выберите значение 3, 9 или 24.");
-    }
-
-    setSelectedOption(value);
-  };
+  // const [edinPerc, setEdinPerc] = useState("4800");
 
   const handleChosenPeriod = (event) => {
     setSelectedYearOption(event.target.value);
@@ -232,7 +251,28 @@ export const Nako = () => {
     }
 
     setWaitTime(time);
+    // setEdinPerc(time);
   };
+  // const resultEdinPercent = (price / 100) * edinPerc;
+  // const newResulEdinPercent = resultEdinPercent.toFixed(1);
+
+  // const summaPvEv = firstContribution + resultEdinPercent;
+
+  const calculateOneTimePayment = () => {
+    switch (selectValue) {
+      case "3":
+        return sum * 0.04;
+      case "6":
+        return sum * 0.05;
+      case "9":
+        return sum * 0.06;
+      case "12":
+        return sum * 0.07;
+      default:
+        return 0;
+    }
+  };
+
   return (
     <>
       <div className="home">
@@ -301,6 +341,7 @@ export const Nako = () => {
               className="select"
               name="Срок"
               onChange={(event) => handleChosenPeriod(event)}
+              // onClick={(e) => percentFunc(e)}
             >
               {monthOptions.map((yearOption) => (
                 <option key={yearOption}>{yearOption}</option>
@@ -331,7 +372,22 @@ export const Nako = () => {
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
                   {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
-                  <td>{newResulEdinPercent}</td>
+                  <td>
+                    {/* {newResulEdinPercent} */}
+                    {console.log(
+                      selectedYearOption,
+
+                      "yearOption"
+                    )}
+
+                    {selectedYearOption == 3 ? Number(price / 100) * 4 : ""}
+                    {selectedYearOption == 6 ? Number(price / 100) * 4 : ""}
+
+                    {selectedYearOption == 9 ? Number(price / 100) * 3.5 : ""}
+                    {selectedYearOption == 12 ? Number(price / 100) * 3.5 : ""}
+                    {selectedYearOption == 18 ? Number(price / 100) * 3 : ""}
+                    {selectedYearOption == 24 ? Number(price / 100) * 3 : ""}
+                  </td>
                   <td>{selectedCurrency} </td>
                 </tr>
                 {/* <tr>
