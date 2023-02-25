@@ -437,7 +437,9 @@ export const Nako = () => {
             <div>
               <ol>
                 {[...Array(Number(selectedYearOption)).keys()].map((id) => (
-                  <li key={id}>{(result / selectedYearOption).toFixed(2)}</li>
+                  <li key={id}>
+                    {(summaPvEv / selectedYearOption).toFixed(2)}
+                  </li>
                 ))}
               </ol>
             </div>
