@@ -26,18 +26,6 @@ const edinper = [
   },
 ];
 
-// const currencySelect = ["сом", "сум", "рубль", "usd", "тенге"];
-const currencySelect = [
-  {
-    title: "сом",
-    currency: "KGZ",
-  },
-  {
-    title: "usd",
-    currency: "USD",
-  },
-];
-
 const CurrencyOptions = [
   {
     title: "доллар",
@@ -47,10 +35,7 @@ const CurrencyOptions = [
     title: "сом",
     currency: "KGS",
   },
-  // {
-  //   title: "евро",
-  //   currency: "EUR",
-  // },
+
   {
     title: "рубль",
     currency: "RUB",
@@ -65,65 +50,20 @@ const minValueInDollars = 4000;
 const maxValueInDollars = 150000;
 
 export const Nako = () => {
-  const [pers, setPers] = useState();
-  const [price, setPrice] = useState("3000000");
+  const [price, setPrice] = useState("150000");
   const [srok, setSrok] = useState("2");
-  const [currency, setCurrency] = useState(currencySelect[0]);
-  const [firstF, setFirstF] = useState("kk");
 
-  // const [perc, setPerc] = useState("5");
+  const [waitTime, setWaitTime] = useState("5");
   let edinPercent = 4;
-  // const percentFunc = (event) => {
-  //   setSelectedYearOption(event.target.value);
-  //   const value = parseInt(event.target.value);
-
-  //   let ed = 0;
-  //   switch (ed) {
-  //     case 3:
-  //       ed = 5;
-  //       break;
-  //     case 6:
-  //       ed = 4;
-  //       break;
-  //     default:
-  //       "log";
-  //   }
-
-  //   setPerc(ed);
-  // };
-
-  const mal = 420;
-
-  var money = 3000000;
-  var tallage = 14;
 
   const [selectedFirstContributionOption, setSelectedFirstContributionOption] =
-    useState(savingPercentage[2]);
+    useState(savingPercentage[0]);
   const [selectedYearOption, setSelectedYearOption] = useState(monthOptions[0]);
 
   const firstContribution =
     (Number(price) * selectedFirstContributionOption) / 100;
 
-  // console.log(firstContribution);
   const leftover = (Number(price) - firstContribution).toFixed(1);
-
-  // const [selectValue, setSelectValue] = useState("");
-  // let edinPercent = 0;
-  // switch (selectedYearOption) {
-  //   case 3:
-  //     edinPercent = 4;
-  //   case 9:
-  //     edinPercent = 5;
-  //   default:
-  //     "ff";
-  // }
-  // setSelectValue(edinPercent);
-  // sele = edinPercent;
-
-  // console.log(selectedYearOption, "first");
-  // if (selectedYearOption === 3) {
-  //   edinPercent = 5;
-  // }
 
   const resultEdinPercent = (price / 100) * edinPercent;
   console.log(edinPercent, "edinP");
@@ -137,16 +77,12 @@ export const Nako = () => {
   const [selectedCurrency, setSelectedCurrency] = useState(
     CurrencyOptions[0].title
   );
-  // const [price, setPrice] = useState(`${minValueInDollars}`);
   const [conversionRates, setConversionRates] = useState({});
 
   useEffect(() => {
     async function getData() {
       try {
         const { data } = await axios(
-          // .get<{
-          //   conversion_rates: Record<string, number>;
-          // }>
           "https://v6.exchangerate-api.com/v6/1e7cf64bfbea115cf5c534ee/latest/USD"
         );
 
@@ -179,13 +115,6 @@ export const Nako = () => {
   let res = Number(price * percent) / 100;
   let result = res / month;
 
-  let res2 = Number(result * 100) / percent;
-
-  const finish = price - res;
-
-  // const resultEdinPercent = ((price / 100) * edinPercent).toFixed(3);
-  // const resultEdinPercent = (price / 100) * edinPercent;
-
   // ежемесячный платеж
   const total = (leftover / month).toFixed(1);
   //
@@ -213,12 +142,6 @@ export const Nako = () => {
   const getSrok = (val) => {
     setSrok(srokOptions[val] || "");
   };
-
-  const options = [3, 6, 9, 18, 24];
-  const [selectedOption, setSelectedOption] = useState("");
-  const [waitTime, setWaitTime] = useState("5");
-
-  // const [edinPerc, setEdinPerc] = useState("4800");
 
   const handleChosenPeriod = (event) => {
     setSelectedYearOption(event.target.value);
@@ -251,26 +174,6 @@ export const Nako = () => {
     }
 
     setWaitTime(time);
-    // setEdinPerc(time);
-  };
-  // const resultEdinPercent = (price / 100) * edinPerc;
-  // const newResulEdinPercent = resultEdinPercent.toFixed(1);
-
-  // const summaPvEv = firstContribution + resultEdinPercent;
-
-  const calculateOneTimePayment = () => {
-    switch (selectValue) {
-      case "3":
-        return sum * 0.04;
-      case "6":
-        return sum * 0.05;
-      case "9":
-        return sum * 0.06;
-      case "12":
-        return sum * 0.07;
-      default:
-        return 0;
-    }
   };
 
   return (
@@ -307,15 +210,6 @@ export const Nako = () => {
                   <option key={title}>{title}</option>
                 ))}
               </Form.Select>
-
-              {/* <input
-                    type="range"
-                    className="range"
-                    min={`${minValueInChosenCurrency}`}
-                    max={`${maxValueInChosenCurrency}`}
-                    value={price}
-                    onChange={(event) => setPrice(event.target.value)}
-                  /> */}
             </div>
 
             {/* */}
@@ -335,13 +229,11 @@ export const Nako = () => {
               ))}
             </Form.Select>
 
-            {/*     2*/}
             <div>Срок накопления</div>
             <Form.Select
               className="select"
               name="Срок"
               onChange={(event) => handleChosenPeriod(event)}
-              // onClick={(e) => percentFunc(e)}
             >
               {monthOptions.map((yearOption) => (
                 <option key={yearOption}>{yearOption}</option>
@@ -371,15 +263,7 @@ export const Nako = () => {
 
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
-                  {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
                   <td>
-                    {/* {newResulEdinPercent} */}
-                    {console.log(
-                      selectedYearOption,
-
-                      "yearOption"
-                    )}
-
                     {selectedYearOption == 3 ? Number(price / 100) * 4 : ""}
                     {selectedYearOption == 6 ? Number(price / 100) * 4 : ""}
 
@@ -390,11 +274,7 @@ export const Nako = () => {
                   </td>
                   <td>{selectedCurrency} </td>
                 </tr>
-                {/* <tr>
-                  <td className="td">Ежемесячный платеж:</td>
-                  <td>{total}</td>
-                  <td>{selectedCurrency} </td>
-                </tr> */}
+
                 <tr>
                   <td className="td">Сумма ПВ и ЕВ:</td>
                   <td>{summaPvEv}</td>
@@ -418,22 +298,6 @@ export const Nako = () => {
               </tbody>
             </Table>
 
-            {/* <div>
-              <label>
-                Выберите значение:
-                <select value={selectedOption} onChange={handleOptionChange}>
-                  <option value="">--Выберите--</option>
-                  {options.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              {waitTime > 0 && (
-                <p>Ваш срок ожидания составляет {waitTime} месяцев.</p>
-              )}
-            </div> */}
             <div>
               <ol>
                 {[...Array(Number(selectedYearOption)).keys()].map((id) => (
