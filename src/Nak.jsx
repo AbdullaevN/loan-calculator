@@ -66,11 +66,10 @@ export const Nako = () => {
   const leftover = (Number(price) - firstContribution).toFixed(1);
 
   const resultEdinPercent = (price / 100) * edinPercent;
-  console.log(edinPercent, "edinP");
 
   const newResulEdinPercent = resultEdinPercent.toFixed(1);
 
-  const summaPvEv = firstContribution + resultEdinPercent;
+  // const summaPvEv = firstContribution + resultEdinPercent;
 
   //
 
@@ -175,7 +174,37 @@ export const Nako = () => {
 
     setWaitTime(time);
   };
+  const summaPvEv = firstContribution + resultEdinPercent;
 
+  // const [price, setPrice] = useState(100);
+  // const [selectedYearOption, setSelectedYearOption] = useState(3);
+  const [calculatedPrice, setCalculatedPrice] = useState("");
+
+  function handleCalculatePrice() {
+    // useEffect(() => {
+    // const newCalculatedPrice = calculatePrice(selectedYearOption, price);
+  }
+  // }, []);
+  function calculatePrice() {
+    if (selectedYearOption == 3) {
+      return Number(price / 100) * 4;
+    } else if (selectedYearOption == 6) {
+      return Number(price / 100) * 4;
+    } else if (selectedYearOption == 9) {
+      return Number(price / 100) * 3.5;
+    } else if (selectedYearOption == 12) {
+      return Number(price / 100) * 3.5;
+    } else if (selectedYearOption == 18) {
+      return Number(price / 100) * 3;
+    } else if (selectedYearOption == 24) {
+      return Number(price / 100) * 3;
+    } else {
+      return "";
+    }
+  }
+  calculatePrice();
+  console.log(calculatePrice(2000, "ll"));
+  // setCalculatedPrice(calculatePrice);
   return (
     <>
       <div className="home">
@@ -264,20 +293,20 @@ export const Nako = () => {
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
                   <td>
-                    {selectedYearOption == 3 ? Number(price / 100) * 4 : ""}
+                    {/* {selectedYearOption == 3 ? Number(price / 100) * 4 : ""}
                     {selectedYearOption == 6 ? Number(price / 100) * 4 : ""}
-
                     {selectedYearOption == 9 ? Number(price / 100) * 3.5 : ""}
                     {selectedYearOption == 12 ? Number(price / 100) * 3.5 : ""}
                     {selectedYearOption == 18 ? Number(price / 100) * 3 : ""}
-                    {selectedYearOption == 24 ? Number(price / 100) * 3 : ""}
+                    {selectedYearOption == 24 ? Number(price / 100) * 3 : ""} */}
+                    {calculatePrice()}
                   </td>
                   <td>{selectedCurrency} </td>
                 </tr>
 
                 <tr>
                   <td className="td">Сумма ПВ и ЕВ:</td>
-                  <td>{summaPvEv}</td>
+                  <td>{parseInt(firstContribution + calculatePrice())}</td>
                   <td>{selectedCurrency} </td>
                 </tr>
                 <tr>
