@@ -165,13 +165,14 @@ input[type="range"]::-ms-fill-upper {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white !important;
+  color: rgb(0, 0, 0) !important;
   border: white !important;
 }
 .nav-item {
   border: 1px solid white !important;
   padding: 3px !important;
   border-radius: 15px;
+  /* color: black !important; */
 }
 
 .select-cel {
@@ -282,6 +283,7 @@ input[type="range"]::-ms-fill-upper {
 /*  */
 .text-infoo {
   display: flex;
+  gap: 15px;
   padding: 5px;
   justify-content: center;
   align-items: flex-start;
