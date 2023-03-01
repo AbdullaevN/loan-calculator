@@ -108,7 +108,10 @@ export const TheCalculator = () => {
           className="nav nav-pills mb-3 glav"
           id="pills-tab"
           role="tablist"
-          style={{ display: "flex", justifyContent: "space-around" }}
+          style={{
+            display: "flex",
+            justifyContent: "space-around",
+          }}
         >
           <li className="nav-item" role="presentation">
             <button
@@ -122,12 +125,7 @@ export const TheCalculator = () => {
               aria-selected="true"
             >
               Недвижимость
-              <img
-                src={!img ? domWhite : ned}
-                alt=""
-                className="dom"
-                style={{ width: "20px" }}
-              />
+              <img src={!img ? domWhite : ned} alt="" className="dom" />
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -142,7 +140,12 @@ export const TheCalculator = () => {
               aria-selected="false"
             >
               Авто
-              <img src={!img ? autoWhite : bulbon} alt="" className="dom" />
+              <img
+                src={!img ? autoWhite : bulbon}
+                alt=""
+                className="dom"
+                style={{ position: "relative", right: "-20px", width: "40px" }}
+              />
             </button>
           </li>
           <li className="nav-item" role="presentation">
@@ -172,7 +175,12 @@ export const TheCalculator = () => {
               aria-selected="false"
             >
               Накопительная
-              <img src={!img ? nakWhite : bulbon} alt="" className="dom" />
+              <img
+                src={!img ? nakWhite : bulbon}
+                alt=""
+                className="dom"
+                style={{ width: "31px" }}
+              />
             </button>
           </li>
         </ul>

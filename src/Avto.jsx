@@ -296,14 +296,6 @@ export const Avto = () => {
                 <div className="content-price-block">{price}</div>
               </div>
 
-              {/* <Form.Control
-                value={price}
-                type="number"
-                onChange={(event) => {
-                  setPrice(event.target.value);
-                }}
-              /> */}
-
               <Form.Select
                 onChange={(event) => {
                   console.log("som", event.target.value);
@@ -315,15 +307,6 @@ export const Avto = () => {
                   <option key={title}>{title}</option>
                 ))}
               </Form.Select>
-
-              {/* <input
-                type="range"
-                className="range"
-                min={`${minValueInChosenCurrency}`}
-                max={`${maxValueInChosenCurrency}`}
-                value={price}
-                onChange={(event) => setPrice(event.target.value)}
-              /> */}
             </div>
 
             <div
@@ -383,11 +366,6 @@ export const Avto = () => {
                 </tr>
               </thead>
               <tbody>
-                {/* <tr>
-                  <td>3</td>
-                  <td>{selectedYearOption}</td>
-                  <td>{selectedCurrency} </td>
-                </tr> */}
                 <tr>
                   <td className="td">Сумма финансирования:</td>
                   <td>{price} </td>
@@ -400,7 +378,6 @@ export const Avto = () => {
                 </tr>
                 <tr>
                   <td className="td">Единаразовый взнос: </td>
-                  {/* <td colSpan={2}>{newResulEdinPercent}</td> */}
                   <td>{newResulEdinPercent}</td>
                   <td>{selectedCurrency} </td>
                 </tr>
@@ -425,11 +402,6 @@ export const Avto = () => {
                   <td>{srok}</td>
                   <td> </td>
                 </tr>
-                {/* <tr>
-                  <td className="td">Срок накопления:</td>
-                  <td>{selectedYearOption}</td>
-                  <td>{currency} </td>
-                </tr> */}
               </tbody>
             </Table>
             <div>
@@ -474,14 +446,12 @@ export const Avto = () => {
               </div>
             </div>
             <div className="text-infoo">
-              {/* <ul className=""> */}
               * Срок ожидания зависит от размера первоначального взноса <br />
               * Год выпуска автомашины не должен быть старше 2000 г <br />* Авто
               и спец технику могут получить только совершеннолетние резиденты{" "}
               <br />
               * Имущество не должно находиться в залоге или аресте <br />
               * Имущество не должно находиться в аварийном состоянии <br />
-              {/* </ul> */}
             </div>
           </div>
         </div>

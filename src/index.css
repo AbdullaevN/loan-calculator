@@ -3,18 +3,19 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
-  max-width: 1280px;
+  /* max-width: 1240px; */
+  /* width: 100vh; */
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background: #497e49 !important;
+  background: rgb(0, 151, 58) !important;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  background: #497e49;
+  background: rgb(0, 151, 58);
 }
 
 @media (prefers-color-scheme: light) {
@@ -28,4 +29,8 @@
   button {
     background-color: #f9f9f9;
   }
+}
+
+body {
+  background: red;
 }

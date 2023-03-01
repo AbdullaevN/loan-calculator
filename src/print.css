@@ -1,9 +1,3 @@
-/* @media all {
-  .page-break {
-    display: none;
-  }
-} */
-
 @media print {
   body {
     visibility: hidden;
@@ -12,16 +6,3 @@
     visibility: visible;
   }
 }
-/* 
-@media print {
-  .page-break {
-    margin-top: 1rem;
-    display: block;
-    page-break-after: always;
-  }
-}
-
-@page {
-  size: auto;
-  margin: 20mm;
-} */
